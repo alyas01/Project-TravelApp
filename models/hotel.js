@@ -29,8 +29,7 @@ const hotelSchema = new mongoose.Schema({
 		required: 'Cost per night is required'
 	}, 
 	Available: {
-		type: Boolean, 
-		requiredL 'Availability is required'
+		type: Boolean
 	}
 }); 
 

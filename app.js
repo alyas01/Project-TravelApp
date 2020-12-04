@@ -14,7 +14,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 //set up mongoose connection 
-mongoose.connect('mongodb+srv://misha_alyas:travel@cluster-v1.mqyel.mongodb.net/<dbname>?retryWrites=true&w=majority');
+mongoose.connect('mongodb://misha.alyas:travel@realm.mongodb.com:27020/?authMechanism=PLAIN&authSource=%24external&ssl=true&appName=travel-ohuad:mongodb-atlas:local-userpass');
 mongoose.Promise = global.Promise; 
 mongoose.connection.on('error', (error)=> console.error(error.message)); 
 
