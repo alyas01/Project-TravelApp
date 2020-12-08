@@ -6,14 +6,19 @@ const hotelController = require("../controllers/hotelController");
 
 
 /* GET home page. */
-router.get('/', hotelController.homePage); 
+router.get('/', hotelController.homePageFilters); 
 router.get('/all', hotelController.listAllHotels); 
-
+router.get('/countries', hotelController.listAllCountries); 
+router.get('/admin/edit-remove', hotelController.editRemoveGet); 
+router.post('/admin/edit-remove', hotelController.editRemovePost); 
 /*
  router.get('/all', function(req, res){
  	res.render('all_hotels', {title: "All Hotel"}); 
 }); 
 */
+
+router.get('/admin/:hotelId/update',hotelController.updateHotelGet); 
+
 
 // ADMIN Routes: 
 
