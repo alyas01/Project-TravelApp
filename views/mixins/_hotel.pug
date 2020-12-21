@@ -2,8 +2,18 @@ mixin hotel(hotel)
 
 	.hotel
 		.hotel_img
-			a(href=`/all/${hotel._id}`)
-				img(src=`/images/hotels/${hotel.image}`)
+			a(href=`/all/${hotel._id}`) #{hotel._id}
+				//- img(src=`/images/hotels/${hotel.image}`)
+				img(src=`http://res.cloudinary.com/dykawk5p2/image/upload/${hotel.image}.jpg`)
+		.hotel_info
+			a(href='/all/${hotel._id}')
+				h3= hotel.hotel_name
+			hr
+			if url.startsWith('/all/')
+				p=hotel.hotel_description
+				hr
+			p=`Country: ${hotel.country}`
+			p=`Star Rating: ${hotel.star_rating}`
 
 		
 

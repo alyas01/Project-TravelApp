@@ -1,3 +1,4 @@
+require('dotenv').config(); 
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -13,8 +14,14 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.use((req, res, next) => {
+	//console.log('current path is:' + req.path);
+	res.locals.url = req.path 
+	next(); 
+}); 
+
 //set up mongoose connection 
-mongoose.connect('mongodb+srv://misha_alyas:travel@travel.7kirx.mongodb.net/travel?retryWrites=true&w=majority');
+mongoose.connect(process.env.DB);
 mongoose.Promise = global.Promise; 
 mongoose.connection.on('error', (error)=> console.error(error.message)); 
 
