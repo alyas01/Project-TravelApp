@@ -184,6 +184,21 @@ exports.hotelsByCountry = async (req, res, next) => {
 	}
 }
 
+exports.searchResults = async(req, res, next) =>{
+	try{
+		const searchQuery = req.body; 
+		const parsedStars = parseInt(searchQuery.stars); 
+		const parsedSort = parseInt(searchQuery.sort); 
+		const searchData = await Hotel.aggregate([
+			{ $match: { $text: { $search: `\"${searchQuery.destination}\"` }}}, 
+			{ $match: {available: true, star_rating: {$gte: parsedStars}}}
+		]); 
+		res.render('search_results', {title: 'Search results', searchQuery, searchData});
+
+	}catch(error){
+		next(error)
+	}
+}
 
 
 

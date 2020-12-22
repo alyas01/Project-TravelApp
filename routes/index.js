@@ -14,6 +14,9 @@ router.get('/admin/edit-remove', hotelController.editRemoveGet);
 router.post('/admin/edit-remove', hotelController.editRemovePost); 
 
 router.get('/countries/:country', hotelController.hotelsByCountry); 
+router.post('/results', hotelController.searchResults); 
+
+
 /*
  router.get('/all', function(req, res){
  	res.render('all_hotels', {title: "All Hotel"}); 
