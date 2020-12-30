@@ -1,4 +1,5 @@
 const User = require('../models/user'); 
+const Passport = require('passport'); 
 
 //Express Validator 
 const { check, validationResult} = require('express-validator/check');
@@ -8,6 +9,16 @@ const {sanitize} = require('express-validator/filter');
 exports.signUpGet = (req, res) => {
 	res.render('sign_up', {title: 'User Sign Up'}); 
 }
+
+exports.loginGet = (req, res) => {
+    res.render('login', {title: 'Login to continue'} );
+};
+
+exports.loginPost = Passport.authenticate('local', {
+	successRedirect: '/', 
+	failureRedirect: '/login', 
+
+}); 
 
 exports.signUpPost = [
 	// Validate the User's data 
@@ -32,9 +43,20 @@ exports.signUpPost = [
 		const errors = validationResult(req);
 		if(!errors.isEmpty()){
 			// There are errors 
-			res.json(req.body); 
-			//res.render('sign_up',{title: 'Please Fix The Following Errors: ', errors: errors.array()}); 
+			//res.json(req.body); 
+			res.render('sign_up',{title: 'Please Fix The Following Errors: ', errors: errors.array()}); 
+			return; 
+		}else{
+			const newUser = new User(req.body); 
+			User.register(newUser, req.body.password, function(err){
+				if(err){
+					console.log('error while registerining!', err); 
+					return next(err)
+				}
+			}); 
 		}
+		//next(); //move onto loginPost after registering 
+
 	}
 ]
 

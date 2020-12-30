@@ -8,11 +8,26 @@ var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 
+// For Passport.js: 
+
+const User = require('./models/user'); 
+const passport = require('passport'); 
+
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+//configure passport middleware 
+app.use(passport.initialize()); 
+app.use(passport.session()); 
+
+passport.use(User.createStrategy()); // provided by passport for the user schema 
+passport.serializeUser(User.serializeUser()); 
+passport.deserializeUser(User.deserializeUser()); 
+
+
 
 app.use((req, res, next) => {
 	//console.log('current path is:' + req.path);
